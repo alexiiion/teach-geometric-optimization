@@ -1,4 +1,4 @@
-# Geometric optimization -- Ruffles
+# Geometric optimization
 
 
 ## Install
@@ -24,8 +24,10 @@ Install [CMake](https://cmake.org/download/), which is the build system that cre
 ## Building
 
 ### (1) Clone the code recursively
+This project uses [libigl](https://github.com/libigl/libigl/) for geometry processing. See the [libigl tutorial](https://libigl.github.io/tutorial/).
+Clone this repository with all dependencies, configured as submodules, using:
 ```
-git clone --recursive git://github.com/foo/bar.git
+git clone --recursive <repo>
 ```
 
 ### (2) Build using CMake
@@ -53,5 +55,7 @@ There are some warnings due to changes in the build system of libigl. It still w
 * Windows: open the `*.sln` file, which opens Visual Studio. There, set the configuration to `RelWithDebInfo`. Right click on the `GeometricOptimization` project in the Solution Explorere and select `Set as Startup Project`.
 
 * MacOS: execute in Xcode or in terminal.
+
+This is the result of a successful compilation:
 
 <img src="./_instructions/result.PNG" width="500"/>
