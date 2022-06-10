@@ -36,7 +36,8 @@ On Windows, open the CMake GUI (see the image below).
 
 <img src="./_instructions/cmake-gui-initial-config.PNG" width="500"/>
 
-From the root directory that contains `CMakeLists.txt`, run:
+
+On MacOS, you can also use the cmake-gui, as described above. Alterantively, from the root directory that contains `CMakeLists.txt`, run:
 
 ```
 mkdir _build
@@ -45,3 +46,12 @@ cmake ../
 make
 ```
 
+There are some warnings due to changes in the build system of libigl. It still works. After running cmake, the output should be `Configuring done`.
+
+### (3) Run the code
+
+* Windows: open the `*.sln` file, which opens Visual Studio. There, set the configuration to `RelWithDebInfo`. Right click on the `GeometricOptimization` project in the Solution Explorere and select `Set as Startup Project`.
+
+* MacOS: execute in Xcode or in terminal.
+
+<img src="./_instructions/result.PNG" width="500"/>

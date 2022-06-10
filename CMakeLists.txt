@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
-project(DevelopableRuffles)
+project(GeometricOptimization)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(DEPENDENCIES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/")
@@ -35,6 +35,8 @@ option(LIBIGL_WITH_XML               "Use XML"            ON)
 set(LIBIGL_DIR "${DEPENDENCIES_DIR}/libigl/")
 set(LIBIGL_INCLUDE_DIR "${LIBIGL_DIR}/include/")
 list(APPEND CMAKE_MODULE_PATH "${LIBIGL_INCLUDE_DIR}/../cmake")
+
+# add_subdirectory(${LIBIGL_DIR})
 include(libigl)
 
 
@@ -42,10 +44,7 @@ include(libigl)
 include_directories("${DEPENDENCIES_DIR}/LBFGSpp/include")
 
 # Include mesh plane intersection library
-include_directories("${DEPENDENCIES_DIR}/mesh-plane-intersection/src")
-
-# Include mesh-plane-intersection
-include_directories("${DEPENDENCIES_DIR}/mesh-plane-intersection/src")
+#include_directories("${DEPENDENCIES_DIR}/mesh-plane-intersection/src")
 
 
 
@@ -81,20 +80,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(SRC_ROOT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/source/")
 include_directories(${SRC_ROOT_PATH})
 
-# set(SRC_COMMON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/source/common")
-# include_headers(included_directories ${SRC_COMMON_PATH})
-# get_sources(COMMON_SRC_FILES ${SRC_COMMON_PATH})
-# group_like_folders(groups ${SRC_COMMON_PATH}) 
-
-# link_libraries(igl::core igl::opengl igl::opengl_glfw igl::opengl_glfw_imgui igl::xml igl::cgal)
-# foreach(EXECUTABLE_SRC_FILE IN ITEMS ${EXECUTABLE_SRC_FILES})
-    # message(${EXECUTABLE_SRC_FILE})
-    # get_filename_component(EXECUTABLE_NAME ${EXECUTABLE_SRC_FILE} NAME_WE)
-    # message(${EXECUTABLE_NAME})
-    # add_executable(${EXECUTABLE_NAME} ${EXECUTABLE_SRC_FILE} ${COMMON_SRC_FILES})
-# endforeach()
-
-
 
 # Add header files recursively
 file(
@@ -103,39 +88,17 @@ file(
     "${SRC_ROOT_PATH}/*.h*"
 )
 
-#foreach(H_FOLDER IN ITEMS ${HEADER_FILES})
-#    get_filename_component(H_FOLDER_PATH "${H_FOLDER}" PATH)
-#    #file(RELATIVE_PATH H_FOLDER_PATH_RELATIVE "${SRC_ROOT_PATH}" "${H_FOLDER_PATH}")
-#    #string(REPLACE "/" "\\" ESCAPED_FOLDER_PATH "${H_FOLDER_PATH_RELATIVE}")
-#    string(REPLACE "/" "\\" ESCAPED_FOLDER_PATH "${H_FOLDER_PATH}")
-#	include_directories(${ESCAPED_FOLDER_PATH})
-#endforeach()
-
-
 # Add source files recursively
 file(
-    GLOB_RECURSE COMMON_SRC_FILES 
+    GLOB_RECURSE SRC_FILES 
     LIST_DIRECTORIES false
     "${SRC_ROOT_PATH}/*.c*"
 	"${SRC_ROOT_PATH}/*.h*"
 )
-#include_directories("${SRC_ROOT_PATH}/common")
 
-file(
-    GLOB EXECUTABLE_SRC_FILES
-    LIST_DIRECTORIES false
-    "${SRC_ROOT_PATH}/bin/*.c*"
-)
-message(${COMMON_SRC_FILES})
-message(${EXECUTABLE_SRC_FILES})
-
-list(REMOVE_ITEM COMMON_SRC_FILES ${EXECUTABLE_SRC_FILES})
-
-message(${COMMON_SRC_FILES})
-message(${EXECUTABLE_SRC_FILES})
 
 # Group source files for IDE (Visual Studio) -- remove this if it causes problems for other IDEs
-foreach(SRC_FILE IN ITEMS ${COMMON_SRC_FILES})
+foreach(SRC_FILE IN ITEMS ${SRC_FILES})
     get_filename_component(SRC_FILE_PATH "${SRC_FILE}" PATH)
     file(RELATIVE_PATH SRC_PATH_RELATIVE "${SRC_ROOT_PATH}" "${SRC_FILE_PATH}")
     string(REPLACE "/" "\\" GROUP_PATH "${SRC_PATH_RELATIVE}")
@@ -148,21 +111,9 @@ if(WIN32)
 endif()
 
 
-set(EXECUTABLE_PREFIX "ruffles_")
+add_executable(${PROJECT_NAME} ${SRC_FILES})
+target_link_libraries(${PROJECT_NAME} PUBLIC igl::core igl::opengl igl::opengl_glfw igl::opengl_glfw_imgui igl::xml igl::cgal)
 
-link_libraries(igl::core igl::opengl igl::opengl_glfw igl::opengl_glfw_imgui igl::xml igl::cgal)
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     link_libraries(stdc++fs)
 endif()
-
-add_library(ruffles OBJECT ${COMMON_SRC_FILES})
-
-foreach(EXECUTABLE_SRC_FILE IN ITEMS ${EXECUTABLE_SRC_FILES})
-    message(${EXECUTABLE_SRC_FILE})
-    get_filename_component(EXECUTABLE_NAME ${EXECUTABLE_SRC_FILE} NAME_WE)
-    message(${EXECUTABLE_NAME})
-    #add_executable("${EXECUTABLE_PREFIX}${EXECUTABLE_NAME}" ${EXECUTABLE_SRC_FILE} ${COMMON_SRC_FILES})
-    add_executable("${EXECUTABLE_PREFIX}${EXECUTABLE_NAME}" ${EXECUTABLE_SRC_FILE})
-    target_link_libraries("${EXECUTABLE_PREFIX}${EXECUTABLE_NAME}" ruffles)
-endforeach()
-
