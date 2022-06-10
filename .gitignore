@@ -1,5 +1,5 @@
-**/build/
-**/__build*/
+**./build/
+**./__build*/
 *.log
 *.aux
 *.cfg
@@ -28,5 +28,4 @@
 *.fdb*
 *.fls
 *.synctex*
-/paper/Ruffles.pdf
 *.vscode*
