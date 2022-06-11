@@ -17,7 +17,7 @@ If you don't have your toolchain set up already, I recommend installing IDEs tha
 Install [CMake](https://cmake.org/download/), which is the build system that creates the C++ project, sets up dependencies, etc. If you are new to CMake, I recommend using the CMake GUI.
 
 ### (3) Boost C++ libraries
-* Windows: [Install instructions](https://robots.uc3m.es/installation-guides/install-boost.html#install-boost-windows). You might need to run the command prompt in admin mode. I recommend using the *Developer command prompt* that is installed by Visual Studio.
+* Windows: [Install instructions](https://robots.uc3m.es/installation-guides/install-boost.html#install-boost-windows). You might need to run the command prompt in admin mode. I recommend using the *Developer command prompt* that is installed by Visual Studio. Check that a system variable in your environment variables was created: `BOOST_ROOT: <path-to-boost>\boost_1_77_0`. Create the variable if needed.
 * MacOS: [Install instructions](https://robots.uc3m.es/installation-guides/install-boost.html#install-boost-ubuntu)
 
 
@@ -27,13 +27,13 @@ Install [CMake](https://cmake.org/download/), which is the build system that cre
 This project uses [libigl](https://github.com/libigl/libigl/) for geometry processing. See the [libigl tutorial](https://libigl.github.io/tutorial/).
 Clone this repository with all dependencies, configured as submodules, using:
 ```
-git clone --recursive <repo>
+git clone --recursive https://github.com/alexiiion/teach-geometric-optimization.git
 ```
 
 ### (2) Build using CMake
 On Windows, open the CMake GUI (see the image below). 
-1. Set the path to **this folder** (source code) and 
-2. the **build folder** as they are on your system. The build folder should be contained in this folder. 
+1. The source code folder is **this folder** (where this README is)  
+2. The build folder should be contained in this folder, e.g., `<path-to-repo-root>/_build`
 3. Click `Configure` and keep the settings (your Visual Studio version might be newer, keep `Use default native compilers` unless you know what you do.)
 
 <img src="./_instructions/cmake-gui-initial-config.PNG" width="500"/>
