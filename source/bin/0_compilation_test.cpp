@@ -29,6 +29,7 @@ std::string get_this_folder_path()
 
 bool callback_update_view(igl::opengl::glfw::Viewer& viewer)
 {
+
     viewer.data().set_mesh(V, F);
     viewer.data().add_label(viewer.data().V.row(0) + viewer.data().V_normals.row(0).normalized() * 0.005, "Hello World!");
 
@@ -37,9 +38,9 @@ bool callback_update_view(igl::opengl::glfw::Viewer& viewer)
 
 void callback_update_menu()
 {
-    bool _viewer_menu_visible = true;
-    ImGui::Begin("Example", &_viewer_menu_visible, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_AlwaysAutoResize);
-    ImGui::PushItemWidth(ImGui::GetWindowWidth() * 0.5f);
+    //bool _viewer_menu_visible = true;
+    //ImGui::Begin("Example", nullptr, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_AlwaysAutoResize);
+    //ImGui::PushItemWidth(ImGui::GetWindowWidth() * 0.5f);
 
     // Draw parent menu content
     menu.draw_viewer_menu();
@@ -116,7 +117,8 @@ void callback_update_custom_window()
 void viewer_register_callbacks()
 {
     viewer.callback_pre_draw = callback_update_view; // calls at each frame
-    menu.callback_draw_viewer_window = callback_update_menu;
+    menu.callback_draw_viewer_menu = callback_update_menu;
+    //menu.callback_draw_viewer_window = callback_update_menu;
     menu.callback_draw_custom_window = callback_update_custom_window;
 
     viewer.core().is_animating = true;
@@ -137,7 +139,7 @@ void initialize_view()
 int main(int argc, char* argv[])
 {
     // Load a mesh in OBJ format
-    igl::readOBJ(get_this_folder_path() + "../models/bunny.obj", V, F);
+    igl::readOBJ(get_this_folder_path() + "../../models/bunny.obj", V, F);
 
     // Initialize the viewer
     initialize_view();

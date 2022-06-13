@@ -1,5 +1,4 @@
-**build/
-**__build/
+**build*/
 *.log
 *.aux
 *.cfg
