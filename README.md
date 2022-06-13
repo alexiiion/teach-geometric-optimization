@@ -11,7 +11,7 @@ If you already have a C++ environment set up, skip this section and feel free to
 
 If you don't have your toolchain set up already, I recommend installing IDEs that take of the toolchain for you:
 * Windows: [Visual Studio](https://visualstudio.microsoft.com/vs/community/), which installs the MSVC compiler for you
-* MacOS: [Xcode](https://developer.apple.com/xcode/), which install clang for you
+* MacOS: [Xcode](https://developer.apple.com/xcode/), which installs clang for you
 
 ### (2) CMake
 Install [CMake](https://cmake.org/download/), which is the build system that creates the C++ project, sets up dependencies, etc. If you are new to CMake, I recommend using the CMake GUI.
@@ -33,28 +33,36 @@ git clone --recursive https://github.com/alexiiion/teach-geometric-optimization.
 ```
 
 ### (2) Build using CMake
-On Windows, open the CMake GUI (see the image below). 
+On **Windows**, open the CMake GUI (see the image below). 
 1. The source code folder is **this folder** (where this README is)  
 2. The build folder should be contained in this folder, e.g., `<path-to-repo-root>/_build`
 3. Click `Configure` and keep the settings (your Visual Studio version might be newer, keep `Use default native compilers` unless you know what you do.)
 
 <img src="./_instructions/cmake-gui-initial-config.PNG" width="500"/>
 
+<!-- 4. At the end of the output `Configuration done.`  -->
+4. Click `Generate`, which will create your project files, after successful configuration (indicated by `Configuration done.`)
 
-On MacOS, you can also use the cmake-gui, as described above. Alterantively, from the root directory that contains `CMakeLists.txt`, run:
+
+On **MacOS**, you can also use the cmake-gui, as described above. Alterantively, from the root directory that contains `CMakeLists.txt`, run:
 
 ```
-mkdir _build
-cd _build
+mkdir __build
+cd __build
 cmake ../
 make
 ```
 
-There are some warnings due to changes in the build system of libigl. It still works. After running cmake, the output should be `Configuring done`.
+<!-- There are some warnings due to changes in the build system of libigl. It still works. After running cmake, the output should be `Configuring done`. -->
+
+The line `cmake ../` will configure the project for you and `make` will build the project. Here is how your folder should look like after successful building:
+
+<img src="./_instructions/macos-folder-afterbuilding.png" width="250"/>
+
 
 ### (3) Run the code
 
-* Windows: open the `*.sln` file, which opens Visual Studio. There, set the configuration to `RelWithDebInfo`. Right click on the `GeometricOptimization` project in the Solution Explorere and select `Set as Startup Project`.
+* Windows: open the `*.sln` file, which opens Visual Studio. There, set the configuration to `RelWithDebInfo`. Right click on the `0_compilation_test` project in the Solution Explorer and select `Set as Startup Project`. Then compile using the little green arrow. This will take a while.
 
 * MacOS: execute in Xcode or in terminal.
 
