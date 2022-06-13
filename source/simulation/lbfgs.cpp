@@ -29,9 +29,9 @@ bool LBFGS::step(SimulationMesh &mesh) {
 		dbg(e.what());
 		lbfgs_converged = true;
 	}
+
 	if (mesh.relax_air_mesh()) {
-		// air mesh changed, run again
-		return false;
+		return false; // air mesh changed, run again
 	} else {
 		return lbfgs_converged;
 	}

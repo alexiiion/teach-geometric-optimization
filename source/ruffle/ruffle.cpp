@@ -1003,7 +1003,6 @@ void Ruffle::physics_solve() {
 	for(; steps < 1000 && !simulator->step(simulation_mesh); steps++) {
 		//simulation_mesh.relax_air_mesh();
 	}
-
 	cerr << "Converged? in " << steps << " steps" << endl;
 
 	auto end = std::chrono::steady_clock::now();

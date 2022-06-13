@@ -92,6 +92,7 @@ namespace ruffles {
 
 		for (int i = 0; i < ruffle.simulation_mesh.dof(); i += 2) {
 			Vector2 pos = ruffle.simulation_mesh.x.segment<2>(i);
+			
 			if (pos(1) > y_target - 1e-3) {
 				if (grad(i + 1) > 0.) {
 					cout << "What???" << endl; //TODO check!!
@@ -228,13 +229,18 @@ namespace ruffles {
 			}
 
 			if (ImGui::Button("Solve")) {
-				if (solve_loop)
-					is_simulating = true; 
+				//if (solve_loop)
+				is_simulating = !is_simulating;
+			}
+
+			if (ImGui::Button("Solve one Step")) {
+				is_simulating = false;
 
 				ruffle.physics_solve();
 				update_force();
 				update_visualization();
 			}
+
 
 			ImGui::Text("f = %f N", f * 1e-4 / ruffle.simulation_mesh.k_global);
 			ImGui::Text("y_target = %f", y_target);
@@ -276,7 +282,8 @@ namespace ruffles {
 		//Ruffle ruffle = Ruffle::create_ruffle_stack(2, 3., 10.67, 0.5);
 		// default stack
 		ruffle = Ruffle::create_ruffle_stack(2, 3., 5.28, 0.5);
-		ruffle.simulator.reset(new simulation::Combination(ruffle.simulation_mesh));
+		ruffle.simulator.reset(new simulation::Verlet(ruffle.simulation_mesh));
+		//ruffle.simulator.reset(new simulation::Combination(ruffle.simulation_mesh));
 		ruffle.simulation_mesh.density = 0.160; // 160g paper
 		ruffle.simulation_mesh.k_bend = 105000; // 160g paper  //TODO check this!!
 		ruffle.simulation_mesh.update_vertex_mass();
@@ -309,6 +316,7 @@ namespace ruffles {
 
 		y_current = get_displacement();
 		y_target = y_current;
+		y_target_step = y_target;
 		ruffle.simulation_mesh.ub(1) = y_target;
 		
 		update_force();

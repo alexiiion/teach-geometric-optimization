@@ -1,8 +1,8 @@
 # Geometric optimization
 
 
-## Install
-Install all of the following components well **before** the session. Note that some of these packages are **large** (multiple GB) and take time to download and install. Make sure to test everything to be ready to go.
+## Install tools
+Install all of the following components **well before** the session. Note that some of these packages are **large** (multiple GB) and take time to download and install. Make sure to test everything to be ready to go.
 
 If you are experienced in C++ and have everyting already setup, jump to [Building](#building) directly.
 
