@@ -58,7 +58,6 @@ namespace ruffles {
 	real y_step = 0.5;
 
 	bool show_forces = true;
-	bool solve_loop = false;
 	bool is_simulating = false;
 
 
@@ -205,7 +204,6 @@ namespace ruffles {
 
 		if (ImGui::CollapsingHeader("Ruffle", ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			ImGui::Checkbox("solve loop", &solve_loop);
 			ImGui::Checkbox("show forces", &show_forces);
 
 			if (ImGui::InputReal("target height", &y_target)) {
@@ -228,8 +226,8 @@ namespace ruffles {
 				update_visualization();
 			}
 
-			if (ImGui::Button("Solve")) {
-				//if (solve_loop)
+			if (ImGui::Button("Solve")) 
+			{
 				is_simulating = !is_simulating;
 			}
 

@@ -1,4 +1,4 @@
-# Geometric optimization
+# A primer on Geometric Optimization
 
 
 ## Install tools
