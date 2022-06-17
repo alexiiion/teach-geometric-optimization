@@ -1,5 +1,4 @@
 **build*/
-*__final.cpp
 *.log
 *.aux
 *.cfg
