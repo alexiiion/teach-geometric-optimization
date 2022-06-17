@@ -127,7 +127,7 @@ void PlanePositioning::update_menu(Menu& menu)
 		selected_plane->update_rotation();
 		has_changed = true;
 	}
-	ImGui::SameLine();
+	//ImGui::SameLine();
 	if (ImGui::Button("flip plane"))
 	{
 		selected_plane->flip();

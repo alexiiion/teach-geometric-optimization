@@ -10,7 +10,7 @@ void ToolSelector::update_view(igl::opengl::glfw::Viewer& viewer)
 
 void ToolSelector::update_menu(Menu& menu)
 {
-	if (!ImGui::CollapsingHeader("tool", ImGuiTreeNodeFlags_DefaultOpen))
+	if (!ImGui::CollapsingHeader("tools", ImGuiTreeNodeFlags_DefaultOpen))
 		return;
 
 	int choice_tool = view_model.active_tool;
@@ -34,7 +34,7 @@ void ToolSelector::update_menu(Menu& menu)
 		view_model.has_selected_part_changed = true;
 	}
 
-	ImGui::SameLine();
+	//ImGui::SameLine();
 
 	if (ImGui::Checkbox("show only selected", &view_model.is_only_selected_visible))
 		view_model.has_selected_part_changed = true;

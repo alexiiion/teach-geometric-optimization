@@ -94,7 +94,7 @@ namespace ruffles {
 			
 			if (pos(1) > y_target - 1e-3) {
 				if (grad(i + 1) > 0.) {
-					cout << "What???" << endl; //TODO check!!
+					cout << "    grad(i + 1) > 0." << endl; 
 				}
 				else {
 					f += -grad(i + 1);
@@ -132,7 +132,6 @@ namespace ruffles {
 		viewer.data().clear();
 		viewer.data().clear_labels();
 
-		//TODO check!!
 		if (show_forces) {
 			MatrixX p1(mesh.dof() / 2, 2);
 			MatrixX p2(mesh.dof() / 2, 2);

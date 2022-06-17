@@ -78,17 +78,17 @@ void RuffleOptimizer::update_menu(Menu& menu)
 		has_changed = true;
 	}
 
-	if (ImGui::Button("Step heuristic (outer)")) {
-		optimization::Heuristic heuristic(part->target());
-		heuristic.step_outer(part->ruffle());
-		has_changed = true;
-	}
+	//if (ImGui::Button("Step heuristic (outer)")) {
+	//	optimization::Heuristic heuristic(part->target());
+	//	heuristic.step_outer(part->ruffle());
+	//	has_changed = true;
+	//}
 
-	if (ImGui::Button("Step heuristic (inner)")) {
-		optimization::Heuristic heuristic(part->target());
-		heuristic.step_inner(part->ruffle());
-		has_changed = true;
-	}
+	//if (ImGui::Button("Step heuristic (inner)")) {
+	//	optimization::Heuristic heuristic(part->target());
+	//	heuristic.step_inner(part->ruffle());
+	//	has_changed = true;
+	//}
 
 	if (ImGui::Button("Physics solve")) {
 		part->ruffle().physics_solve();
