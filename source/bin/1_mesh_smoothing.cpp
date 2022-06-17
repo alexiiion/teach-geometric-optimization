@@ -231,8 +231,8 @@ namespace mesh_smoothing {
 
 
         // Load a mesh in OFF format
-        igl::readOFF(MODEL_PATH "/cow.off", V, F);
-        //igl::readOBJ(MODEL_PATH "bunny_uniform.obj", V, F);
+        igl::readOFF(PathHelper::get_folder_path(__FILE__) + "/../../models/cow.off", V, F);
+        //igl::readOBJ(PathHelper::get_folder_path(__FILE__) + "/../../models/bunny_uniform.obj", V, F);
 
 
         // Compute Laplace-Beltrami operator: #V by #V

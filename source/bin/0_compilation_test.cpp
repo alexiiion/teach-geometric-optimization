@@ -84,7 +84,9 @@ namespace compilation_test {
         viewer_register_callbacks();
 
         // Load a mesh in OBJ format
-        igl::readOBJ(MODEL_PATH "bunny.obj", V, F);
+        //igl::readOBJ(MODEL_PATH "bunny.obj", V, F);
+
+        igl::readOBJ(PathHelper::get_folder_path(__FILE__) + "/../../models/bunny.obj", V, F);
         //igl::readOBJ(MODEL_PATH "bunny_uniform.obj", V, F);
 
 
