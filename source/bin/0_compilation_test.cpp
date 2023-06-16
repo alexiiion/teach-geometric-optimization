@@ -32,9 +32,25 @@ namespace compilation_test {
     Eigen::MatrixXi F;
 
 
+    void center_mesh()
+    {
+        std::cout << "center mesh" << std::endl;
+
+        //get centroid
+        Eigen::RowVector3d min_point = V.colwise().minCoeff();
+        Eigen::RowVector3d max_point = V.colwise().maxCoeff();
+        Eigen::RowVector3d centroid = ((min_point + max_point) * 0.5).eval();
+
+        V = V.rowwise() - centroid;
+        std::cout << "translate by " << centroid << std::endl;
+    }
+
     bool callback_update_view(igl::opengl::glfw::Viewer& viewer)
     {
         viewer.data().clear();
+
+        Eigen::Matrix3d coord = Eigen::Matrix3d::Identity();
+        viewer.data().add_edges(Eigen::Matrix3d::Zero(), coord, coord);
 
         viewer.data().set_mesh(V, F);
         viewer.data().add_label(viewer.data().V.row(0) + viewer.data().V_normals.row(0).normalized() * 0.005, "Hello World!");
@@ -51,6 +67,14 @@ namespace compilation_test {
 
         if (ImGui::CollapsingHeader("Our menu", ImGuiTreeNodeFlags_DefaultOpen))
         {
+            if (ImGui::Button("center mesh"))
+            {
+                center_mesh();
+            }
+            if (ImGui::Button("2x mesh"))
+            {
+                V *= 2.0;
+            }
         }
     }
 

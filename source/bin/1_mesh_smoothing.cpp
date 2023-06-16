@@ -82,11 +82,11 @@ namespace mesh_smoothing {
         {
             for (int i = 1; i < n - 1; i++)
             {
-                Eigen::RowVector3d vb = path_smoothed.row(i - 1) - path_smoothed.row(i);
-                Eigen::RowVector3d vf = path_smoothed.row(i + 1) - path_smoothed.row(i);
+                Eigen::RowVector2d vb = path_smoothed.row(i - 1) - path_smoothed.row(i);
+                Eigen::RowVector2d vf = path_smoothed.row(i + 1) - path_smoothed.row(i);
 
-                Eigen::RowVector3d Lp = vb * 0.5 + vf * 0.5;
-                Eigen::RowVector3d point = path_smoothed.row(i) + smooth_rate * Lp;
+                Eigen::RowVector2d Lp = vb * 0.5 + vf * 0.5;
+                Eigen::RowVector2d point = path_smoothed.row(i) + smooth_rate * Lp;
 
                 point = point + inflate_rate * Lp; // Taubin smooth
 

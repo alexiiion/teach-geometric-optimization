@@ -25,7 +25,7 @@ Install [CMake](https://cmake.org/download/), which is the build system that cre
 
 ## Building
 
-### (1) Clone the code recursively
+### (1) Clone the code **recursively**
 This project uses [libigl](https://github.com/libigl/libigl/) for geometry processing. See the [libigl tutorial](https://libigl.github.io/tutorial/).
 Clone this repository with all dependencies, configured as submodules, using:
 ```
@@ -62,9 +62,9 @@ The line `cmake ../` will configure the project for you and `make` will build th
 
 ### (3) Run the code
 
-* Windows: open the `*.sln` file, which opens Visual Studio. There, set the configuration to `RelWithDebInfo`. Right click on the `0_compilation_test` project in the Solution Explorer and select `Set as Startup Project`. Then compile using the little green arrow. This will take a while.
+* **Windows**: open the `*.sln` file, which opens Visual Studio. There, set the configuration to `RelWithDebInfo`. Right click on the **`0_compilation_test`** project in the Solution Explorer and select `Set as Startup Project`. Then compile using the little green arrow. This will take a while.
 
-* MacOS: execute in Xcode or in terminal.
+* **MacOS**: execute in Xcode or in terminal.
 
 This is the result of a successful compilation:
 
