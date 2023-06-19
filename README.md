@@ -20,7 +20,7 @@ Install [CMake](https://cmake.org/download/), which is the build system that cre
 * Windows: [Install instructions](https://robots.uc3m.es/installation-guides/install-boost.html#install-boost-windows). 
     * You might need to run the command prompt in admin mode. I recommend using the *Developer command prompt* that is installed by Visual Studio. 
     * Check that a system variable in your environment variables was created: `BOOST_ROOT: <path-to-boost>\boost_1_77_0`. Create the variable if needed.
-***** MacOS: Install instructions
+* MacOS: Install instructions
   1. Go to the terminal. Make sure you have brew installed by typing `brew -v`. If not, see [brew installation](https://docs.brew.sh/Installation).
   2. Install boost by `brew install boost`.
   3. Find the where boost is located by typing `brew info boost`. Its output should contain a path that looks like `/opt/homebrew/Cellar/boost/1.79.0_2`.
