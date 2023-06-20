@@ -28,3 +28,4 @@
 *.fls
 *.synctex*
 *.vscode*
+.DS_Store
