@@ -17,14 +17,16 @@ If you don't have your toolchain set up already, I recommend installing IDEs tha
 Install [CMake](https://cmake.org/download/), which is the build system that creates the C++ project, sets up dependencies, etc. If you are new to CMake, I recommend using the CMake GUI.
 
 ### (3) Boost C++ libraries
-* Windows: [Install instructions](https://robots.uc3m.es/installation-guides/install-boost.html#install-boost-windows). 
-    * You might need to run the command prompt in admin mode. I recommend using the *Developer command prompt* that is installed by Visual Studio. 
-    * Check that a system variable in your environment variables was created: `BOOST_ROOT: <path-to-boost>\boost_1_77_0`. Create the variable if needed.
-* MacOS: Install instructions
-  1. Go to the terminal. Make sure you have brew installed by typing `brew -v`. If not, see [brew installation](https://docs.brew.sh/Installation).
-  2. Install boost by `brew install boost`.
-  3. Find the where boost is located by typing `brew info boost`. Its output should contain a path that looks like `/opt/homebrew/Cellar/boost/1.79.0_2`.
-  4. Run `export BOOST_ROOT=/opt/homebrew/Cellar/boost/1.79.0_2` (or whatever boost path you see in the previous step) to make sure your build system can find boost. Do this before building EVERYTIME.
+**Windows:**
+1. Follow the [Boost install instructions](https://robots.uc3m.es/installation-guides/install-boost.html#install-boost-windows).
+2. You might need to run the command prompt in admin mode. I recommend using the *Developer command prompt* that is installed by Visual Studio.
+3. Check that a system variable in your environment variables was created: `BOOST_ROOT: <path-to-boost>\boost_1_77_0`. Create the variable if needed.
+
+**MacOS:** 
+1. Go to the terminal. Make sure you have brew installed by typing `brew -v`. If not, see [brew installation](https://docs.brew.sh/Installation).
+2. Install boost by `brew install boost`.
+3. Find the where boost is located by typing `brew info boost`. Its output should contain a path that looks like `/opt/homebrew/Cellar/boost/1.77.0_2`.
+4. Run `export BOOST_ROOT=/opt/homebrew/Cellar/boost/1.77.0_2` (or whatever boost path you see in the previous step) to make sure your build system can find boost. Do this before building EVERYTIME.
 
 ## Building
 
@@ -65,12 +67,16 @@ The line `cmake ../` will configure the project for you and `make` will build th
 
 ### (3) Run the code
 
-* **Windows**: open the `*.sln` file, which opens Visual Studio. There, set the configuration to `RelWithDebInfo`. Right click on the **`0_compilation_test`** project in the Solution Explorer and select `Set as Startup Project`. Then compile using the little green arrow. This will take a while.
+* **Windows**:
+1. Open the `*.sln` file, which opens Visual Studio.
+2. There, set the configuration to `RelWithDebInfo`.
+3. Right click on the **`0_compilation_test`** project in the Solution Explorer and select `Set as Startup Project`.
+4. Then compile using the little green arrow. This will take a while.
 
 * **MacOS**:
-  1. Go to `__build` in your terminal.
-  2. Execute `./0_compilation_test` and hopefully it runs!
-  3. It's unlikely, but if you see something like `zsh: permission denied: ./0_compilation_test`, try `chmod +x 0_compilation_test` before step 2.
+1. Go to `__build` in your terminal.
+2. Execute **`./0_compilation_test`**
+3. It's unlikely, but if you see something like `zsh: permission denied: ./0_compilation_test`, try `chmod +x 0_compilation_test` before step 2.
 
 This is the result of a successful compilation:
 
