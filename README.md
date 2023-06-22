@@ -62,7 +62,9 @@ make
 
 The line `cmake ../` will configure the project for you and `make` will build the project. Here is how your folder should look like after successful building: 
 
-<span style="background-color: red; font-weight:bold; color: white"> UPDATE image </span>
+```diff
+! UPDATE image 
+```
 
 <img src="./_instructions/macos-folder-afterbuilding.png" width="250"/>
 
