@@ -1,9 +1,6 @@
 #include <igl/opengl/glfw/Viewer.h>
 #include <igl/opengl/glfw/imgui/ImGuiMenu.h>
 #include <igl/opengl/glfw/imgui/ImGuiHelpers.h>
-//#include <igl/file_dialog_open.h>
-//#include <igl/file_dialog_save.h>
-
 
 #include "common/common.h"
 #include "common/imgui.h"
@@ -12,10 +9,6 @@
 #include "simulation/verlet.h"
 #include "simulation/lbfgs.h"
 #include "simulation/combination.h"
-
-//#include "optimization/target_shape.h"
-//#include "optimization/particle_swarm.h"
-//#include "optimization/heuristic.h"
 
 #include "visualization/visualization.h"
 
@@ -162,8 +155,6 @@ namespace ruffles {
 		}
 
 		viewer.data().set_mesh(vis.V.cast<double>(), vis.F);
-		//viewer.data().set_colors(vis.C.cast<double>());
-
 		viewer.data().uniform_colors(Vector3(0.3, 0.3, 0.3), Vector3(207.0 / 255.0, 233.0 / 255.0, 243.0 / 255.0), Vector3(0, 0, 0));
 
 		viewer.data().double_sided = true;
@@ -246,7 +237,6 @@ namespace ruffles {
 	{
 		viewer.callback_pre_draw = callback_update_view; // calls at each frame
 		menu.callback_draw_viewer_menu = callback_update_menu;
-		//menu.callback_draw_viewer_window = callback_update_menu;
 
 		viewer.core().is_animating = true;
 		viewer.core().animation_max_fps = 30.;
@@ -257,7 +247,6 @@ namespace ruffles {
 		// Attach a menu plugin
 		viewer.plugins.push_back(&menu);
 
-		//data_model.viewer.core().background_color = Eigen::Vector4f(1, 1, 1, 1);
 		viewer.core().background_color.setOnes();
 		viewer.core().set_rotation_type(igl::opengl::ViewerCore::ROTATION_TYPE_TRACKBALL);
 		viewer.resize(1600, 1400);
@@ -272,8 +261,10 @@ namespace ruffles {
 
 		//Ruffle ruffle = Ruffle::create_ruffle_stack(4, 0.5, 1.0, 0.1);
 		//Ruffle ruffle = Ruffle::create_horizontal_stack(4, 4., 3., 0.5);
+		
 		// wide stack:
 		//Ruffle ruffle = Ruffle::create_ruffle_stack(2, 3., 10.67, 0.5);
+		
 		// default stack
 		ruffle = Ruffle::create_ruffle_stack(2, 3., 5.28, 0.5);
 		ruffle.simulator.reset(new simulation::Verlet(ruffle.simulation_mesh));
@@ -282,27 +273,10 @@ namespace ruffles {
 		ruffle.simulation_mesh.k_bend = 105000; // 160g paper  //TODO check this!!
 		ruffle.simulation_mesh.update_vertex_mass();
 
-		/*
-		std::next(ruffle.sections.begin(), 0)->length = 5.53; // ???
-		std::next(ruffle.sections.begin(), 1)->length = 4.32; //  ???
-		std::next(ruffle.sections.begin(), 2)->length = 6.11;
-		std::next(ruffle.sections.begin(), 3)->length = 4.59;
-		std::next(ruffle.sections.begin(), 4)->length = 5.28;
-		std::next(ruffle.sections.begin(), 5)->length = 4.32;
-		std::next(ruffle.sections.begin(), 6)->length = 6.19;
-		std::next(ruffle.sections.begin(), 7)->length = 4.59; // ???
-		std::next(ruffle.sections.begin(), 8)->length = 5.71; // ???
-		*/
 		ruffle.update_simulation_mesh();
 
 		for (int i = 0; i < 10; i++)
 			ruffle.physics_solve();
-		/*
-			ruffle.densify(std::next(ruffle.sections.begin(), 7));
-			ruffle.densify(std::next(ruffle.sections.begin(), 5));
-			ruffle.densify(std::next(ruffle.sections.begin(), 3));
-			ruffle.densify(std::next(ruffle.sections.begin(), 1));
-		*/
 		
 		ruffle.simulation_mesh.generate_air_mesh(); //TODO add this to visualization & update!
 		for (int i = 0; i < 10; i++)

@@ -186,7 +186,7 @@ namespace mesh_smoothing {
         return false;
     }
 
-    bool callback_key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int mod)
+    bool callback_key_up(igl::opengl::glfw::Viewer& viewer, unsigned char key, int mod)
     {
         switch (key)
         {
@@ -222,7 +222,7 @@ namespace mesh_smoothing {
     void viewer_register_callbacks()
     {
         viewer.callback_pre_draw = callback_update_view; // calls at each frame
-        viewer.callback_key_up = callback_key_down;
+        viewer.callback_key_up = callback_key_up;
         //menu.callback_draw_viewer_menu = callback_update_menu;
 
         viewer.core().is_animating = true;

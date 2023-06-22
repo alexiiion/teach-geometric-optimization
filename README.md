@@ -60,7 +60,9 @@ make
 
 <!-- There are some warnings due to changes in the build system of libigl. It still works. After running cmake, the output should be `Configuring done`. -->
 
-The line `cmake ../` will configure the project for you and `make` will build the project. Here is how your folder should look like after successful building:
+The line `cmake ../` will configure the project for you and `make` will build the project. Here is how your folder should look like after successful building: 
+
+<span style="background-color: red; font-weight:bold; color: white"> UPDATE image </span>
 
 <img src="./_instructions/macos-folder-afterbuilding.png" width="250"/>
 
@@ -70,13 +72,13 @@ The line `cmake ../` will configure the project for you and `make` will build th
 * **Windows**:
 1. Open the `*.sln` file, which opens Visual Studio.
 2. There, set the configuration to `RelWithDebInfo`.
-3. Right click on the **`0_compilation_test`** project in the Solution Explorer and select `Set as Startup Project`.
+3. Right click on the **`0_intro_igl`** project in the Solution Explorer and select `Set as Startup Project`.
 4. Then compile using the little green arrow. This will take a while.
 
 * **MacOS**:
 1. Go to `__build` in your terminal.
-2. Execute **`./0_compilation_test`**
-3. It's unlikely, but if you see something like `zsh: permission denied: ./0_compilation_test`, try `chmod +x 0_compilation_test` before step 2.
+2. Execute **`./0_intro_igl`**
+3. It's unlikely, but if you see something like `zsh: permission denied: ./0_intro_igl`, try `chmod +x 0_intro_igl` before step 2.
 
 This is the result of a successful compilation:
 
