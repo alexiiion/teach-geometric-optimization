@@ -32,28 +32,15 @@ namespace compilation_test {
     Eigen::MatrixXi F;
 
 
-    void center_mesh()
-    {
-        std::cout << "center mesh" << std::endl;
-
-        //get centroid
-        Eigen::RowVector3d min_point = V.colwise().minCoeff();
-        Eigen::RowVector3d max_point = V.colwise().maxCoeff();
-        Eigen::RowVector3d centroid = ((min_point + max_point) * 0.5).eval();
-
-        V = V.rowwise() - centroid;
-        std::cout << "translate by " << centroid << std::endl;
-    }
-
     bool callback_update_view(igl::opengl::glfw::Viewer& viewer)
     {
         viewer.data().clear();
-
-        Eigen::Matrix3d coord = Eigen::Matrix3d::Identity();
-        viewer.data().add_edges(Eigen::Matrix3d::Zero(), coord, coord);
-
         viewer.data().set_mesh(V, F);
-        viewer.data().add_label(viewer.data().V.row(0) + viewer.data().V_normals.row(0).normalized() * 0.005, "Hello World!");
+
+        /* 
+        *  TODO: make necessary updates
+        */
+
 
         return false;
     }
@@ -67,14 +54,10 @@ namespace compilation_test {
 
         if (ImGui::CollapsingHeader("Our menu", ImGuiTreeNodeFlags_DefaultOpen))
         {
-            if (ImGui::Button("center mesh"))
-            {
-                center_mesh();
-            }
-            if (ImGui::Button("2x mesh"))
-            {
-                V *= 2.0;
-            }
+            /* TODO: add our interaction:
+            *  (1) center mesh (also add coordinate indicator)
+            *  (2) scale mesh
+            */ 
         }
     }
 
@@ -92,7 +75,6 @@ namespace compilation_test {
         // Attach a menu plugin
         viewer.plugins.push_back(&menu);
 
-        //data_model.viewer.core().background_color = Eigen::Vector4f(1, 1, 1, 1);
         viewer.core().background_color.setOnes();
         viewer.core().set_rotation_type(igl::opengl::ViewerCore::ROTATION_TYPE_TRACKBALL);
         viewer.resize(1600, 1400);
@@ -108,12 +90,8 @@ namespace compilation_test {
         viewer_register_callbacks();
 
         // Load a mesh in OBJ format
-        //igl::readOBJ(MODEL_PATH "bunny.obj", V, F);
-
         igl::readOBJ(PathHelper::get_folder_path(__FILE__) + "/../../models/bunny.obj", V, F);
         //igl::readOBJ(MODEL_PATH "bunny_uniform.obj", V, F);
-
-
 
         viewer.launch();
     }

@@ -68,7 +68,7 @@ namespace compilation_test__final {
 
 
 
-    bool callback_update_view(igl::opengl::glfw::Viewer& viewer)
+    bool callback_update_view(igl::opengl::glfw::Viewer& view)
     {
         viewer.data().clear();
 
@@ -79,7 +79,11 @@ namespace compilation_test__final {
 
 
         viewer.data().set_mesh(V, F);
-        viewer.data().add_label(viewer.data().V.row(0) + viewer.data().V_normals.row(0).normalized() * 0.005, "Hello World!");
+
+        if (viewer.data().show_custom_labels) {
+            viewer.data().add_label(viewer.data().V.row(0) + viewer.data().V_normals.row(0).normalized() * 0.01, "V0");
+            viewer.data().add_points(viewer.data().V.row(0), Eigen::MatrixXd::Zero(1, 3));
+        }
 
         return false;
     }

@@ -81,6 +81,14 @@ namespace ruffles {
 		return y;
 	}
 
+	void set_target_displacement(double offset)
+	{
+		y_step = offset;
+		y_target += y_step;
+		y_target_step = y_target;
+		ruffle.simulation_mesh.ub(1) = y_target_step;
+	}
+
 	void update_force() 
 	{
 		f_prev = f;
@@ -182,14 +190,6 @@ namespace ruffles {
 			update_force();
 			update_visualization();
 		}
-		
-
-		//if (is_simulating && !has_converged()) {
-		//	ruffle.physics_solve();
-
-		//	update_force();
-		//	update_visualization();
-		//}
 
 		return false;
 	}
@@ -212,20 +212,17 @@ namespace ruffles {
 				update_visualization();
 			}
 
-			if (ImGui::Button("Apply displacement")) {
-				//auto cmd = "scrot -u /tmp/spring_" + to_string(y_max) + "cm.png";
-				//system(cmd.c_str());
-				//cmd = "echo " + to_string(y_max) + "," + to_string(f * 1e-4 / ruffle.simulation_mesh.k_global) + " >> /tmp/data.csv";
-				//std::cout << "y_max: " << y_max << " -> f = " << (f * 1e-4 / ruffle.simulation_mesh.k_global) << std::endl;
-				//system(cmd.c_str());
-
-				y_target -= y_step;
-				y_target_step = y_target;
-				ruffle.simulation_mesh.ub(1) = y_target_step;
+			ImGui::Text("Apply displacement");
+			if (ImGui::Button("down")) {
+				set_target_displacement(-abs(y_step));
 				update_visualization();
 			}
-
-			if (ImGui::Button("Solve")) 
+			ImGui::SameLine();
+			if (ImGui::Button("up")) {
+				set_target_displacement(abs(y_step));
+				update_visualization();
+			}
+			if (ImGui::Button("Solve"))
 			{
 				is_simulating = !is_simulating;
 			}

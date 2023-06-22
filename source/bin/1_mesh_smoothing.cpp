@@ -38,6 +38,9 @@ namespace mesh_smoothing {
 
     Eigen::MatrixXd curve_V(102, 2);
     Eigen::MatrixXd curve_U(102, 2);
+    bool isCurveVisible = false;
+    bool isMeshVisible = false;
+
 
     void initialize_curve()
     {
@@ -74,7 +77,13 @@ namespace mesh_smoothing {
     }
 
     Eigen::MatrixXd smooth_curve(const Eigen::MatrixXd& path, const int iterations, const double smooth_rate, const double inflate_rate)
-    {
+    {        
+        // only set geometry visible on first key stroke (mode switch)
+        if (!isCurveVisible) {
+            isCurveVisible = true;
+            return path;
+        }
+
         const int n = path.rows();
         Eigen::MatrixXd path_smoothed = path;
 
@@ -100,6 +109,9 @@ namespace mesh_smoothing {
 
     void update_curve_view()
     {
+        if (!isCurveVisible)
+            return;
+
         // Clear edges and points from view
         viewer.data().clear_edges();
         viewer.data().clear_points();
@@ -113,6 +125,12 @@ namespace mesh_smoothing {
 
     Eigen::MatrixXd smooth_mesh(Eigen::MatrixXd& V, Eigen::MatrixXi& F)
     {
+        // only set geometry visible on first key stroke (mode switch)
+        if (!isMeshVisible) {
+            isMeshVisible = true;
+            return V;
+        }
+
         /*
         ** This code is from libigl's tutorial on Laplacian operators
         ** https://libigl.github.io/tutorial/#laplacian
@@ -152,10 +170,14 @@ namespace mesh_smoothing {
 
     void update_mesh_view()
     {
+        if (!isMeshVisible)
+            return;
+
+        viewer.data().set_mesh(U, F);
         // Set new mesh positions for view, update normals, recenter
-        viewer.data().set_vertices(U);
+        //viewer.data().set_vertices(U);
         viewer.data().compute_normals();
-        viewer.core().align_camera_center(U, F);
+        //viewer.core().align_camera_center(U, F);
     }
 
 
@@ -171,9 +193,10 @@ namespace mesh_smoothing {
         case 'r':
         case 'R':
             U = V;
+            isMeshVisible = false;
             curve_U = curve_V;
-            update_curve_view();
-            update_mesh_view();
+            isCurveVisible = false;
+            viewer.data().clear();
             break;
         case 'm':
         case 'M':
@@ -185,7 +208,7 @@ namespace mesh_smoothing {
         case 'c':
         case 'C':
         {
-            curve_U = smooth_curve(curve_U, 1, 0.5, -0.3);
+            curve_U = smooth_curve(curve_U, 1, 0.5, -0.4);
             update_curve_view();
             break;
         }
@@ -239,16 +262,15 @@ namespace mesh_smoothing {
         igl::cotmatrix(V, F, L);
 
 
-
-        // Use original normals as pseudo-colors
-        Eigen::MatrixXd N;
-        igl::per_vertex_normals(V, F, N);
-        Eigen::MatrixXd C = N.rowwise().normalized().array() * 0.5 + 0.5;
-
         // Initialize smoothing with base mesh
         U = V;
         viewer.data().set_mesh(U, F);
-        viewer.data().set_colors(C);
+
+        //// Use original normals as pseudo-colors
+        //Eigen::MatrixXd N;
+        //igl::per_vertex_normals(V, F, N);
+        //Eigen::MatrixXd C = N.rowwise().normalized().array() * 0.5 + 0.5;
+        //viewer.data().set_colors(C);
 
 
 
